@@ -1,0 +1,470 @@
+
+
+sub More_Country_Initialize
+{
+
+
+=begin comment
+%hosts=("base" => "http://localhost/server/market",
+               "kc" => "http://localhost/server/market",
+   );
+
+
+%cookiedomains= ("base" =>"",
+               "kc" =>"",
+);
+
+%cookiepaths= ( "base" =>"",
+               "kc" =>"",
+);
+
+
+=end comment
+=cut
+
+
+%hosts=( "base" => "http://www.auto-grade.org/server/market",
+               "kc" => "http://www.auto-grade.org/server/market",
+);
+
+
+
+%cookiedomains=("base" => ";domain=www.auto-grade.org",
+               "kc" => ";domain=www.auto-grade.org",
+ );
+
+
+%cookiepaths= ("base"  =>  ";path=/",
+               "kc" =>  ";path=/",
+   );
+
+
+#$fileprefix: product files, $httpprefix: common include, $dbprefix: db files.
+#imageprefix: product images, $codeprefix: cgi-bin.
+
+$fileprefix =  "../../../serverdata/market/classify";
+$imageprefix = "../image";
+$opprefix = "../../../serverdata/market/marketop";
+$opimageprefix = "../marketop";
+$codeprefix="/cgi-bin/";
+
+$customerdirectory = "cusdata";
+$purchasedirectory = "invoice";
+$purchasefiledeletetimedif=604800;
+
+$dateformat="mm/dd/yy";
+}
+
+
+sub Country_Initialize
+{
+local (*in) = shift if @_;    # CGI input
+
+
+#@cities=("albuquerque", "altanta", "austin", "baltimore", "boston", "charlotte", "chicago", "cincinnati", 
+#"cleveland", "columbus", "dallasftworth", "denverboulder", "detroit", "houston", 
+#"indianapolis", "kc", "lasvegas", "littlerock", "losangeles", "memphis", "miami",
+#"milwaukee", "minneapolisstpaul", "montreal", "nashville", "newhaven", "newyork", "oklahomacity", #"orlando", 
+#"ottawa", "philadelphia", "phoenix", "pittsburgh", "portland", "puertorico", "raleighdurhamchapelhill", #"renotahoe", "rochester", "sacramento", "saltlakecity", "sanantonio", "sandiego", "sanfrancisco", "sanjose", #"santafe", "seattle", "spokane", "stlouis", "tampa", "toronto", "tucson", 
+#"vancouver", "washingtondc", "wilmington");
+
+@cities=("kc");
+
+#@cityname=("Albuquerque", "Atlanta", "Austin", "Baltimore", "Boston", "Charlotte", "Chicago", #"Cincinnati", "Cleveland", "Columbus", "Dallas/Ft. Worth", "Denver/Boulder", "Detroit", "Houston", 
+#"Indianapolis", "Kansas City", "Las Vegas", "Little Rock", "Los Angeles", "Memphis", "Miami",
+#"Milwaukee", "Minneapolis/St Paul", "Montreal", "Nashville", "New Haven", "New York", "Oklahoma #City", "Orlando", "Ottawa", "Philadelphia", "Phoenix", "Pittsburgh", "Portland", "Puerto Rico", "Raleigh-#Durham-Chapel Hill", "Reno/Tahoe", "Rochester", "Sacramento", "Salt Lake City", "San Antonio", "San #Diego", "San Francisco", "San Jose", "Santa Fe", "Seattle", "Spokane", "St. Louis", "Tampa", "Toronto", #"Tucson", 
+#"Vancouver", "Washington DC", "Wilmington");
+
+@cityname=("$lang{'Kansas City'}");
+
+######End Auto Work Section, Start Common Section
+
+@provincesstates=(
+                   "$lang{'North America'}", 
+                   "$lang{'Washington DC'}",
+                   "$lang{'Alberta'}",
+                   "$lang{'Alabama'}", 
+                   "$lang{'Alaska'}",
+                   "$lang{'Arkansas'}", 
+                   "$lang{'Arizona'}", 
+                   "$lang{'British Columbia'}", 
+                   "$lang{'California'}", 
+                   "$lang{'Colorado'}", 
+                   "$lang{'Connecticut'}",
+                   "$lang{'Delaware'}",
+                   "$lang{'Florida'}", 
+                   "$lang{'Georgia'}", 
+                   "$lang{'Hawaii'}", 
+                   "$lang{'Iowa'}", 
+                   "$lang{'Idaho'}", 
+                   "$lang{'Illinois'}", 
+                   "$lang{'Indiana'}", 
+                   "$lang{'Kansas'}",  
+                   "$lang{'Kentucky'}", 
+                   "$lang{'Louisiana'}", 
+                   "$lang{'Massachusetts'}", 
+                   "$lang{'Manitoba'}", 
+                   "$lang{'Maryland'}", 
+                   "$lang{'Maine'}",
+                   "$lang{'Michigan'}", 
+                   "$lang{'Minnesota'}", 
+                   "$lang{'Missouri'}", 
+                   "$lang{'Mississippi'}", 
+                   "$lang{'Montana'}", 
+                   "$lang{'New Brunswick'}",
+                   "$lang{'North Carolina'}", 
+                   "$lang{'North Dakota'}", 
+                   "$lang{'Nebraska'}",  
+                   "$lang{'Newfoundland'}", 
+                   "$lang{'New Hampshire'}",
+                   "$lang{'New Jersy'}", 
+                   "$lang{'New Mexico'}", 
+                   "$lang{'Northwest Territories'}", 
+                   "$lang{'Nova Scotia'}",
+                   "$lang{'Nevada'}", 
+                   "$lang{'New York'}", 
+                   "$lang{'Ohio'}", 
+                   "$lang{'Oklahoma'}",  
+                   "$lang{'Ontario'}", 
+                   "$lang{'Oregan'}", 
+                   "$lang{'Pennsylvania'}",  
+                   "$lang{'Prince Edward Island'}", 
+                   "$lang{'Quebec'}", 
+                   "$lang{'Rhode Island'}", 
+                   "$lang{'South Carolina'}", 
+                   "$lang{'South Dakota'}", 
+                   "$lang{'Saskatchewan'}",
+                   "$lang{'Tennessee'}", 
+                   "$lang{'Texas'}", 
+                   "$lang{'Utah'}", 
+                   "$lang{'Virginia'}", 
+                   "$lang{'Vermont'}", 
+                   "$lang{'Washington'}",
+                   "$lang{'Wisconsin'}",
+                   "$lang{'West Virginia'}",
+                   "$lang{'Wyoming'}",
+                   "$lang{'Yukon'}", 
+                   "$lang{'Other'}",
+
+);
+
+@provincestatearr =("NA", 
+                   "Washington DC",
+                   "AB",                          #  <!-- Alberta -->
+                   "AL",                          #  <!-- Alabama -->
+                   "AK",                          #  <!-- Alaska -->
+                   "AR",                           #  <!-- Arkansas -->
+                   "AZ",                           #  <!-- Arizona -->
+                   "BC",                           #  <!-- British Columbia -->
+                   "CA",                           #  <!-- California -->
+                   "CO",                           #  <!-- Colorado -->
+                   "CT",                           #  <!-- Connecticut -->
+                   "DE",                           #  <!-- Delaware -->
+                   "FL",                            # <!-- Florida -->
+                   "GA",                           #  <!-- Georgia -->
+                   "HI",                            #  <!--Hawaii -->
+                   "IA",                            #   <!-- Iowa -->
+                   "ID",                            #   <!-- Idaho -->
+                   "IL",                             #   <!-- Illinois -->
+                   "IN",                             # <!-- Indiana -->
+                   "KS",                            # <!-- Kansas --> 
+                   "KY",                           # <!-- Kentucky -->
+                   "LA",                            #  <!-- Louisiana -->
+                   "MA",                           #  <!-- Massachusetts -->
+                   "MB",                           #  <!-- Manitoba -->
+                    "MD",                          #  <!-- Maryland -->
+                    "ME",                          #   <!-- Maine -->
+                    "MI",                           #    <!-- Michigan -->
+                    "MN",                         #  <!-- Minnesota -->
+                    "MO",                         #   <!-- Missouri -->
+                    "MS",                          #   <!-- Mississippi -->
+                    "MT",                          #  <!-- Montana  -->
+                    "NB",                          #   <!-- New Brunswick -->
+                    "NC",                          #   <!-- North Carolina -->
+                    "ND",                          #  <!-- North Dakota -->
+                    "NE",                          #  <!-- Nebraska --> 
+                    "NF",                          #  <!-- Newfoundland -->
+                    "NH",                         # <!-- New Hampshire -->
+                    "NJ",                          #   <!-- New Jersy -->
+                    "NM",                        #  <!-- New Mexico -->
+                    "NT",                         #   <!-- Northwest Territories -->
+                    "NS",                         #   <!-- Nova Scotia -->
+                    "NV",                         #  <!-- Nevada -->
+                    "NY",                         #  <!-- New York -->
+                    "OH",                         #  <!-- Ohio -->
+                    "OK",                         # <!-- Oklahoma --> 
+                    "ON",                         # <!-- Ontario -->
+                    "OR",                         #  <!-- Oregan -->
+                    "PA",                         #   <!-- Pennsylvania --> 
+                    "PE",                          #  <!-- Prince Edward Island -->
+                    "PQ",                         #   <!-- Quebec -->
+                    "RI",                          #   <!-- Rhode Island -->
+                    "SC",                         #   <!-- South Carolina --> 
+                    "SD",                         #   <!-- South Dakota -->
+                    "SK",                         #   <!-- Saskatchewan -->
+                    "TN",                         #   <!-- Tennessee -->
+                    "TX",                         #   <!-- Texas -->
+                    "UT",                         #  <!-- Utah -->
+                    "VA",                        #   <!-- Virginia -->
+                    "VT",                         #   <!-- Vermont -->
+                    "WA",                        #  <!-- Washington -->
+                    "WI",                         #   <!-- Wisconsin -->
+                    "WV",                       #  <!-- West Virginia -->
+                    "WY",                       #  <!-- Wyoming -->
+                    "YK",                         #  <!-- Yukon -->
+                    "Other",
+);
+
+
+
+@classifyarrayname=("$lang{'SCIENCE & FICTION'}", "$lang{'BUSINESS'}", "$lang{'ROMANCE'}", 
+"$lang{'TRAVEL'}", "$lang{'COOKING'}",  
+"$lang{'ACTION & ADVENTURE'}",  "
+$lang{'HEALTH & FITNESS'}", "$lang{'SPORTS'}");
+
+
+@classifyarray=("sci-fi", "business", "romance", "travel", 
+"cooking", "actionandadventure", "healthandfitness",  "sports");
+
+$defaultclassifyarrayname="$lang{'SCIENCE & FICTION'}";
+$defaultclassifyarray="sci-fi";
+
+%categoryarray=("sci-fi" => ["J k Rowling", 
+                                       "Suzzane Collins",
+                                       "Lois Lowry",
+                                       "George Orwell"],
+
+                "business" =>  ["Dale Carnegie", 
+                                "Dr. Stephen R Covey",
+                                "Donald J Trump",
+                                "Gary Armstrong"],
+
+                "romance" => ["Jane Austen", 
+                                                   "Rupi Kaur", 
+                                                   "Emily Bronte", 
+                                                   "Nina George"],
+
+                "travel" => ["Cheryl Strayed",
+                            "Patrica Schultz", 
+                            "Bill Bryson", 
+                            "Brandon Stanlon "], 
+
+       "cooking"=> ["Ina Garten", 
+					"Danielle Walker", 
+                       "Thug Kitchen LLC",
+                       "Jon Bonne"],
+
+          "actionandadventure" => ["Dan Brown", 
+                            "Mark Twain", 
+                            "Jack London",
+                            "Ransom Riggs"],
+
+          "healthandfitness" => ["Dallas Hartwig", 
+                            "Amy Ramos",
+                            "Michael Pollan",
+                            "JJ Smith"],
+
+          "sports"=> [	"Phil Knight", 
+						"John Wooden",
+						"Conn Iggulden",
+						"Michael Lewis"] ,
+
+
+         );
+
+%defaultcategoryarray=(
+                       "sci-fi" => ["J k Rowling"],
+                       "business" =>  ["Dale Carnegie"],
+                       "romance" => ["Jane Austen"],
+                       "travel" => ["Cheryl Strayed"],
+                       "cooking"=> ["Ina Garten"],
+                       "actionandadventure" => ["Dan Brown"],
+                       "healthandfitness" => ["Dallas Hartwig"],
+                       "sports"=> ["Phil Knight"],
+                       
+                        
+);
+
+%categoryarrayname=("sci-fi" => ["$lang{'J K Rowling'}", 
+                                       "$lang{'Suzzane Collins'}",
+                                       "$lang{'Lois Lowry'}",
+                                       "$lang{'George Orwell'}"],
+
+                "business" =>  ["$lang{'Dale Carnegie'}", 
+                                "$lang{'Dr. Stephen R Covey'}",
+                                "$lang{'Donald J Trump'}",
+                                "$lang{'Gary Armstrong'}"],
+
+                "romance" => ["$lang{'Jane Austen'}", 
+                                                   "$lang{'Rupi Kaur'}", 
+                                                   "$lang{'Emily Bronte'}", 
+                                                   "$lang{'Nina George'}"],
+
+                "travel" => ["$lang{'Cheryl Strayed'}",
+                            "$lang{'Patrica Schultz'}", 
+                            "$lang{'Bill Bryson'}", 
+                            "$lang{'Brandon Stanlon'}"], 
+
+       "cooking"=> ["$lang{'Ina Garten'}", 
+							"$lang{'Danielle Walker'}", 
+							"$lang{'Thug Kitchen LLC'}",
+							"$lang{'Jon Bonne'}"
+],
+
+          "actionandadventure" => ["$lang{'Dan Brown'}", 
+                            "$lang{'Mark Twain'}", 
+                            "$lang{'Jack London'}",
+                            "$lang{'Ransom Riggs'}"],
+
+          "healthandfitness" => ["$lang{'Dallas Hartwig'}", 
+                            "$lang{'Amy Ramos'}",
+                            "$lang{'Michael Pollan'}",
+                            "$lang{'JJ Smith'}"],
+
+          "sports"=> ["$lang{'Phil Knight'}", 
+						"$lang{'John Wooden'}",
+                       "$lang{'Conn Iggulden'}",
+                       "$lang{'Michael Lewis'}"] ,
+
+
+);
+
+%categoryarrayattri=("sci-fi" => {"J K Rowling" => [],
+                                       "Suzzane Collins" => [],
+                                       "Lois Lowry" => [],
+                                       "George Orwell"=>[]},
+									
+									   
+                "business" =>  { "Dale Carnegie"=>[], 
+                                "Dr. Stephen R Covey"=>[],
+                                "Donald J Trump"=>[],
+                                "Gary Armstrong"=>[]},
+
+                "romance" => {"Jane Austen"=>[], 
+                                                   "Rupi Kaur"=>[], 
+                                                   "Emily Bronte"=>[], 
+                                                   "Nina George"=>[]},
+
+                "travel" => { "Cheryl Strayed"=>[],
+                            "Patrica Schultz"=>[], 
+                            "Bill Bryson"=>[], 
+                            "Brandon Stanlon"=>[]}, 
+
+       "cooking"=> {"Ina Garten"=>[], 
+					"Danielle Walker"=>[], 
+                       "Thug Kitchen LLC"=>[],
+                       "Jon Bonne"=>[]},
+
+          "actionandadventure" => {"Dan Brown"=>[], 
+                            "Mark Twain"=>[], 
+                            "Jack London"=>[],
+                            "Ransom Riggs"=>[]},
+
+          "healthandfitness" => {"Dallas Hartwig"=>[], 
+                            "Amy Ramos"=>[],
+                            "Michael Pollan"=>[],
+                            "JJ Smith"=>[]},
+
+          "sports"=> {"Phil Knight"=>[], 
+						"John Wooden"=>[],
+                       "Conn Iggulden"=>[],
+                       "Michael Lewis"=>[]},
+
+
+         
+
+);
+
+
+%categoryarrayattriname=("sci-fi" => {"J K Rowling" => [],
+                                       "Suzzane Collins" => [],
+                                       "Lois Lowry" => [],
+                                       "George Orwell"=>[]},
+
+                "business" =>  {"Dale Carnegie"=>[], 
+                                "Dr. Stephen R Covey"=>[],
+                                "Donald J Trump"=>[],
+                                "Gary Armstrong"=>[]},
+
+                "romance" => {"Jane Austen"=>[], 
+                                                   "Rupi Kaur"=>[], 
+                                                   "Emily Bronte"=>[], 
+                                                   "Nina George"=>[]},
+
+                "travel" => { "Cheryl Strayed"=>[],
+                            "Patrica Schultz"=>[], 
+                            "Bill Bryson"=>[], 
+                            "Brandon Stanlon"=>[]}, 
+
+       "cooking"=> {"Ina Garten"=>[], 
+					"Danielle Walker"=>[], 
+                       "Thug Kitchen LLC"=>[],
+                       "Jon Bonne"=>[]},
+
+          "actionandadventure" => {"Dan Brown"=>[], 
+                            "Mark Twain"=>[], 
+                            "Jack London"=>[],
+                            "Ransom Riggs"=>[]},
+
+          "healthandfitness" => {"Dallas Hartwig"=>[], 
+                            "Amy Ramos"=>[],
+                            "Michael Pollan"=>[],
+                            "JJ Smith"=>[]},
+
+          "sports"=> {"Phil Knight"=>[], 
+						"John Wooden"=>[],
+                       "Conn Iggulden"=>[],
+                       "Michael Lewis"=>[]},
+
+
+         
+
+);
+
+
+@postdurationarray=("$lang{'One Week'}", "$lang{'Two Weeks'}", "$lang{'One Month'}", "$lang{'Two Months'}", "$lang{'Three Months'}" , "$lang{'Six Months'}",  
+                                        "$lang{'One Year'}", "$lang{'Two Years'}", "$lang{'Three Years'}",
+                                        "$lang{'Nonexpire'}");
+
+@postdurationday=("7", "14", "0", "0", "0", "0", "0", "0", "0", "0" );
+
+$defaultpostdurationday= ("0");                 
+
+
+@postdurationmonth=("0", "0", "1", "2", "3", "6", "0", "0", "0", "0" ),
+
+
+$defaultpostdurationmonth="0";
+
+@postdurationyear=("0", "0", "0", "0", "0", "0", "1", "2", "3", "20");
+                               
+
+$defaultpostdurationyear = "20";
+
+
+@postdurationname=("oneweek", "twoweeks", "onemonth", "twomonths", "threemonths",
+                                                       "sixmonths", "oneyear", "twoyear", "threeyear",
+                                                       "nonexpire");
+
+$defaultpostdurationname = "nonexpire";
+
+
+@adpricearray=("0.00", "0.00", "0.00", "0.00", "0.00", "0.00", "0.00", "0.00", "0.00", "0.00");
+
+$defaultadprice = ("0.00");
+
+
+@picpricearray=("1.00", "1.00", "1.00", "1.00", "1.00", "1.00", "1.00", "1.00", "1.00", "1.00");
+                        
+
+$defaultpicprice= "1.00";
+
+#$taxrate{"kc"} = ("0.07525");
+$taxrate{"kc"} = ("0.0825");
+
+}
+
+
+1; #return true
+
+
